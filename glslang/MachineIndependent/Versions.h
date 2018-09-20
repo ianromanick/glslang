@@ -201,6 +201,10 @@ const char* const E_GL_AMD_shader_fragment_mask                 = "GL_AMD_shader
 const char* const E_GL_AMD_gpu_shader_half_float_fetch          = "GL_AMD_gpu_shader_half_float_fetch";
 #endif
 
+#ifdef INTEL_EXTENSIONS
+const char* const E_GL_INTEL_shader_integer_functions2          = "GL_INTEL_shader_integer_functions2";
+#endif
+
 #ifdef NV_EXTENSIONS
 
 const char* const E_GL_NV_sample_mask_override_coverage         = "GL_NV_sample_mask_override_coverage";

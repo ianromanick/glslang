@@ -230,6 +230,10 @@ void TParseVersions::initializeExtensionBehavior()
     extensionBehavior[E_GL_AMD_gpu_shader_half_float_fetch]          = EBhDisable;
 #endif
 
+#ifdef INTEL_EXTENSIONS
+    extensionBehavior[E_GL_INTEL_shader_integer_functions2]          = EBhDisable;
+#endif
+
 #ifdef NV_EXTENSIONS
     extensionBehavior[E_GL_NV_sample_mask_override_coverage]         = EBhDisable;
     extensionBehavior[E_SPV_NV_geometry_shader_passthrough]          = EBhDisable;
@@ -413,6 +417,10 @@ void TParseVersions::getPreamble(std::string& preamble)
             "#define GL_AMD_shader_image_load_store_lod 1\n"
             "#define GL_AMD_shader_fragment_mask 1\n"
             "#define GL_AMD_gpu_shader_half_float_fetch 1\n"
+#endif
+
+#ifdef INTEL_EXTENSIONS
+            "#define GL_INTEL_shader_integer_functions2 1\n"
 #endif
 
 #ifdef NV_EXTENSIONS
