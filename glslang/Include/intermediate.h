@@ -903,6 +903,17 @@ enum TOperator {
     EOpFindLSB,
     EOpFindMSB,
 
+#ifdef INTEL_EXTENSIONS
+    EOpCountLeadingZeros,
+    EOpCountTrailingZeros,
+    EOpAbsDifference,
+    EOpAddSaturate,
+    EOpSubSaturate,
+    EOpAverage,
+    EOpAverageRounded,
+    EOpMul32x16,
+#endif
+
 #ifdef NV_EXTENSIONS
     EOpTraceNV,
     EOpReportIntersectionNV,

@@ -211,6 +211,14 @@ bool TOutputTraverser::visitBinary(TVisit /* visit */, TIntermBinary* node)
     case EOpLogicalXor: out.debug << "logical-xor"; break;
     case EOpLogicalAnd: out.debug << "logical-and"; break;
 
+#ifdef INTEL_EXTENSIONS
+    case EOpAddSaturate:            out.debug << "addSaturate";           break;
+    case EOpSubSaturate:            out.debug << "subtractSaturate";      break;
+    case EOpAverage:                out.debug << "average";               break;
+    case EOpAverageRounded:         out.debug << "averageRounded";        break;
+    case EOpMul32x16:               out.debug << "multiply32x16";         break;
+#endif
+
     default: out.debug << "<unknown op>";
     }
 
@@ -553,6 +561,11 @@ bool TOutputTraverser::visitUnary(TVisit /* visit */, TIntermUnary* node)
     case EOpBitCount:               out.debug << "bitCount";              break;
     case EOpFindLSB:                out.debug << "findLSB";               break;
     case EOpFindMSB:                out.debug << "findMSB";               break;
+
+#ifdef INTEL_EXTENSIONS
+    case EOpCountLeadingZeros:      out.debug << "countLeadingZeros";     break;
+    case EOpCountTrailingZeros:     out.debug << "countTrailingZeros";    break;
+#endif
 
     case EOpNoise:                  out.debug << "noise";                 break;
 
