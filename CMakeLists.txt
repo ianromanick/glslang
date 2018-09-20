@@ -26,6 +26,7 @@ option(ENABLE_SPVREMAPPER "Enables building of SPVRemapper" ON)
 option(ENABLE_AMD_EXTENSIONS "Enables support of AMD-specific extensions" ON)
 option(ENABLE_GLSLANG_BINARIES "Builds glslangValidator and spirv-remap" ON)
 
+option(ENABLE_INTEL_EXTENSIONS "Enables support of Intel-specific extensions" ON)
 option(ENABLE_NV_EXTENSIONS "Enables support of Nvidia-specific extensions" ON)
 
 option(ENABLE_HLSL "Enables HLSL input support" ON)
@@ -63,6 +64,10 @@ include(CTest)
 if(ENABLE_AMD_EXTENSIONS)
     add_definitions(-DAMD_EXTENSIONS)
 endif(ENABLE_AMD_EXTENSIONS)
+
+if(ENABLE_INTEL_EXTENSIONS)
+    add_definitions(-DINTEL_EXTENSIONS)
+endif(ENABLE_INTEL_EXTENSIONS)
 
 if(ENABLE_NV_EXTENSIONS)
     add_definitions(-DNV_EXTENSIONS)
