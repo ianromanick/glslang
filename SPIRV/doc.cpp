@@ -934,6 +934,10 @@ const char* CapabilityString(int info)
 
     case CapabilityCooperativeMatrixNV:     return "CapabilityCooperativeMatrixNV";
 
+#ifdef INTEL_EXTENSIONS
+    case CapabilityIntegerFunctions2INTEL:              return "CapabilityIntegerFunctions2INTEL";
+#endif
+
     default: return "Bad";
     }
 }

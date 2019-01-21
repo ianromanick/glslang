@@ -2350,6 +2350,17 @@ bool TGlslangToSpvTraverser::visitAggregate(glslang::TVisit visit, glslang::TInt
         atomic = true;
         break;
 
+#ifdef INTEL_EXTENSIONS
+    case glslang::EOpAbsDifference:
+    case glslang::EOpAddSaturate:
+    case glslang::EOpSubSaturate:
+    case glslang::EOpAverage:
+    case glslang::EOpAverageRounded:
+    case glslang::EOpMul32x16:
+        binOp = node->getOp();
+        break;
+#endif
+
 #ifdef NV_EXTENSIONS
     case glslang::EOpIgnoreIntersectionNV:
     case glslang::EOpTerminateRayNV:
@@ -4938,6 +4949,44 @@ spv::Id TGlslangToSpvTraverser::createBinaryOperation(glslang::TOperator op, OpD
         binOp = spv::OpLogicalNotEqual;
         break;
 
+#ifdef INTEL_EXTENSIONS
+    case glslang::EOpAbsDifference:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        binOp = isUnsigned ? spv::OpAbsUSubINTEL : spv::OpAbsISubINTEL;
+        break;
+
+    case glslang::EOpAddSaturate:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        binOp = isUnsigned ? spv::OpUAddSatINTEL : spv::OpIAddSatINTEL;
+        break;
+
+    case glslang::EOpSubSaturate:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        binOp = isUnsigned ? spv::OpUSubSatINTEL : spv::OpISubSatINTEL;
+        break;
+
+    case glslang::EOpAverage:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        binOp = isUnsigned ? spv::OpUAverageINTEL : spv::OpIAverageINTEL;
+        break;
+
+    case glslang::EOpAverageRounded:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        binOp = isUnsigned ? spv::OpUAverageRoundedINTEL : spv::OpIAverageRoundedINTEL;
+        break;
+
+    case glslang::EOpMul32x16:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        binOp = isUnsigned ? spv::OpUMul32x16INTEL : spv::OpIMul32x16INTEL;
+        break;
+#endif // INTEL_EXTENSIONS
+
     case glslang::EOpLessThan:
     case glslang::EOpGreaterThan:
     case glslang::EOpLessThanEqual:
@@ -5449,6 +5498,20 @@ spv::Id TGlslangToSpvTraverser::createUnaryOperation(glslang::TOperator op, OpDe
         else
             libCall = spv::GLSLstd450FindSMsb;
         break;
+
+#ifdef INTEL_EXTENSIONS
+    case glslang::EOpCountLeadingZeros:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        unaryOp = spv::OpUCountLeadingZerosINTEL;
+        break;
+
+    case glslang::EOpCountTrailingZeros:
+        builder.addCapability(spv::CapabilityIntegerFunctions2INTEL);
+        builder.addExtension("SPV_INTEL_shader_integer_functions2");
+        unaryOp = spv::OpUCountTrailingZerosINTEL;
+        break;
+#endif // INTEL_EXTENSIONS
 
     case glslang::EOpBallot:
     case glslang::EOpReadFirstInvocation:
